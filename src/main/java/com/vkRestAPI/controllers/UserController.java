@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
-    @GetMapping("/")
+    @GetMapping("")
     public String getAllUsers(){
        return userService.getAllUsers();
     }

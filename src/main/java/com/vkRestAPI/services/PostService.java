@@ -1,5 +1,6 @@
 package com.vkRestAPI.services;
 
+import com.vkRestAPI.cache.PostCache;
 import com.vkRestAPI.entities.Post;
 import com.vkRestAPI.repositories.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,6 +20,7 @@ public class PostService {
     private final RestTemplate restTemplate;
     private final PostRepository postRepository;
     private final UserService userService;
+    private final PostCache postCache;
     private final String domain = "https://jsonplaceholder.typicode.com";
 
     public String getAllPosts(){
@@ -29,8 +31,14 @@ public class PostService {
 
     public String getOnePostById(int id){
         String url = domain + "/posts/" + id;
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return response.getBody();
+        if(postCache.takePostFromCache(id) == null){
+            postCache.addPostInCache(postRepository.getById(id), id);
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            return response.getBody();
+        }else {
+            return postCache.takePostFromCache(id).toString();
+        }
+
     }
 
     public String getPostsByUserId(int userId){

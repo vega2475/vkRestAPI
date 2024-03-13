@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     private final PostService postService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String getAllPosts(){
         return postService.getAllPosts();
     }
@@ -20,7 +20,7 @@ public class PostController {
         return postService.getOnePostById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public String addPost(
             @RequestParam String title,
             @RequestParam String body,
