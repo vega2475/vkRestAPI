@@ -1,0 +1,30 @@
+server:
+  port: 1111
+
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/vkdb
+    username: postgres
+    password: 123321nm
+  # Hibernate config
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show_sql: true
+  # For other HTTP methods (PUT PATCH ...)
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+jwt:
+  secret: b9205a487025a1ff0c5a9b683479c35077c006b72f8ab612557eb866668c4f18
+  lifetime: 10m
+
+host:
+  name: localhost
+
+
